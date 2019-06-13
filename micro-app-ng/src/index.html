@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Micro app - Angular</title>
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .logo {
+        height: 200px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body onload="createElement()">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <h5 class="card-header">Angular</h5>
+            <div class="card-body" id="ng-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
+    <script>
+      function createElement() {
+        const ngEl = document.createElement("ng-el");
+        ngEl.setAttribute("name", name);
+        ngEl.addEventListener("helloEvt", e => helloEvent("Angular"));
+
+        const ngElContainer = document.getElementById("ng-container");
+        if (ngElContainer.children.length > 0) {
+          ngElContainer.removeChild(ngElContainer.children[0]);
+        }
+        ngElContainer.appendChild(ngEl);
+      }
+    </script>
+  </body>
+</html>

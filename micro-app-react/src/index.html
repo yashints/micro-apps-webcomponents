@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>React app</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .logo {
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    </style>
+  </head>
+  <body onload="createElement()">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <h5 class="card-header">React</h5>
+            <div class="card-body" id="react-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
+    <script src="main.js"></script>
+    <script>
+      function createElement() {
+        const reactEl = document.createElement("react-el");
+        reactEl.setAttribute("name", name);
+        reactEl.setAttribute("onHelloEvt", "onHelloEvt");
+        const reactElContainer = document.getElementById("react-container");
+        if (reactElContainer.children.length > 0) {
+          reactElContainer.removeChild(reactElContainer.children[0]);
+        }
+        reactElContainer.appendChild(reactEl);
+      }
+    </script>
+  </body>
+</html>

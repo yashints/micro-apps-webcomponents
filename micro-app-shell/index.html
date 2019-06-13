@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>Micro apps and Web Components</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .intro {
+      margin: 30px 0;
+    }
+    .repo {
+      margin: 30px 0;
+      text-align: center;
+      width: 100%;
+    }
+    .card-body {
+      width: 100%;
+      height: 350px;
+    }
+    .logo {
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    .console {
+      margin-top: 20px;
+    }
+    .console h4 {
+      margin-bottom: 15px;
+      border-bottom: solid 1px #000000;
+      padding-bottom: 5px;
+    }
+    .console p {
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+
+<body onload="tellComponents()">
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">           
+          <span class="navbar-brand mb-0 h1">Micro frontends using Web Components</span>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="http://localhost:5001">Angular app</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:5002">React app</a>
+                      </li>
+              </ul>
+          </div>         
+        </nav>
+      </div>
+    </div>
+   <br/>
+    <div class="row">
+      <div class="col">
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">What is your name?</h4>
+            <div class="form-group">
+              <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" id="yourName" aria-describedby="yourName" placeholder="Your name" value="Yaser" />
+              <small id="emailHelp" class="form-text text-muted">Enter your name above then click the button below to tell the components.</small>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="tellComponents()">Tell the components</button>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Angular</h5>
+          <div class="card-body" id="ng-container"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">React</h5>
+          <div class="card-body" id="react-container"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row console">
+      <div class="col">
+          <div class="alert alert-dark" role="alert">
+            <h4 class="alert-heading">Console</h4>
+            <div id="messages"></div>
+          </div>
+      </div>
+    </div>    
+  </div>
+
+  <script>
+    function tellComponents() {
+      const name = document.getElementById('yourName').value;
+
+      const reactEl = document.createElement('react-el');
+      reactEl.setAttribute('name', name);
+      reactEl.setAttribute('onHelloEvt', 'onHelloEvt');
+      reactEl.addEventListener('onHelloEvt', (e) => helloEvent('React'));
+
+      const reactElContainer =  document.getElementById('react-container')
+      if (reactElContainer.children.length > 0) {
+        reactElContainer.removeChild(reactElContainer.children[0]);
+      }
+      reactElContainer.appendChild(reactEl);
+
+      const ngEl = document.createElement('ng-el');
+      ngEl.setAttribute('name', name);
+      ngEl.addEventListener('helloEvt', (e) => helloEvent('Angular'));
+
+
+      const ngElContainer =  document.getElementById('ng-container')
+      if (ngElContainer.children.length > 0) {
+        ngElContainer.removeChild(ngElContainer.children[0]);
+      }
+      ngElContainer.appendChild(ngEl);
+
+      logMessage('You', `my name is ${name}`)
+
+    }
+
+    function helloEvent(who) {
+      logMessage(who, 'hello');
+    }
+
+    function logMessage(source, msg) {
+      const msgContainer = document.getElementById('messages');
+      msgContainer.innerHTML += `<p><strong>${source}</strong> said ${msg}`;
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
+  <script src="http://localhost:5001/main.js"></script>
+  <script src="http://localhost:5002/main.js"></script>
+</body>
+</html>
